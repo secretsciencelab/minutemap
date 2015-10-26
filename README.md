@@ -50,7 +50,7 @@ Example Arduino code to get/set schedule using Base64 code
 
 Example Arduino code to check schedule & fire sprinkler relays
 ---------------------------------------------------------
-
+    
     #include <Time.h>  
     #define NUM_SPRINKLER_CHANNELS 8
     MinuteMap mm[NUM_SPRINKLER_CHANNELS];
