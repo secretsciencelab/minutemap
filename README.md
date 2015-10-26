@@ -37,6 +37,7 @@ Example Arduino code to set schedule programmatically
 
 Example Arduino code to get/set schedule using Base64 code
 -------------------------------------
+
     MinuteMap mm;
     mm.setHourMin(0, 0, 12);  // 12 mins
 
@@ -49,45 +50,45 @@ Example Arduino code to get/set schedule using Base64 code
 
 Example Arduino code to check schedule & fire sprinkler relays
 ---------------------------------------------------------
-  #include <Time.h>  
-  #define NUM_SPRINKLER_CHANNELS 8
-  MinuteMap mm[NUM_SPRINKLER_CHANNELS];
-  boolean sprinklerState[NUM_SPRINKLER_CHANNELS];
 
-  void setup() {
-    // Not shown: set MinuteMap (mm) with your schedule
-  }
+    #include <Time.h>  
+    #define NUM_SPRINKLER_CHANNELS 8
+    MinuteMap mm[NUM_SPRINKLER_CHANNELS];
+    boolean sprinklerState[NUM_SPRINKLER_CHANNELS];
 
-  void loop() {
-    doSprinkle();
-  }
-  
-  void doSprinkle() 
-  {
-    int myHour = hour() % 2; 
-    int myMin = minute(); 
-    // TODO: use real day/hour we want sprinklers to run, 
-    // instead of "every two hours"
+    void setup() {
+      // Not shown: set MinuteMap (mm) with your schedule
+    }
 
-    // process MinuteMap to set sprinkler states
-    for (int i=0; i < NUM_SPRINKLER_CHANNELS; i++)
-      if (mm[i].isHourMinSet(myHour, myMin))
-        sprinklerState[i] = true;
-      else
-        sprinklerState[i] = false;
+    void loop() {
+      doSprinkle();
+    }
+    
+    void doSprinkle() 
+    {
+      int myHour = hour() % 2; 
+      int myMin = minute(); 
+      // TODO: use real day/hour we want sprinklers to run, 
+      // instead of "every two hours"
 
-    // TODO process sprinkler states to switch sprinklers on/off
-    for (int i=0; i < NUM_SPRINKLER_CHANNELS; i++)
-      if (sprinklerState[i])
-      {
-        // digitalWrite(SPRINKLER_RELAY_i, HIGH)
-      }
-      else
-      {
-        // digitalWrite(SPRINKLER_RELAY_i, LOW)
-      }
-  }
+      // process MinuteMap to set sprinkler states
+      for (int i=0; i < NUM_SPRINKLER_CHANNELS; i++)
+        if (mm[i].isHourMinSet(myHour, myMin))
+          sprinklerState[i] = true;
+        else
+          sprinklerState[i] = false;
 
+      // TODO process sprinkler states to switch sprinklers on/off
+      for (int i=0; i < NUM_SPRINKLER_CHANNELS; i++)
+        if (sprinklerState[i])
+        {
+          // digitalWrite(SPRINKLER_RELAY_i, HIGH)
+        }
+        else
+        {
+          // digitalWrite(SPRINKLER_RELAY_i, LOW)
+        }
+    }
 
 Example Python code to get/set schedule using Base64 code
 --------------------------------------
