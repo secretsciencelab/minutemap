@@ -1,5 +1,5 @@
 # minutemap
-Minute Map: share 2-minute-resolution schedules between embedded devices &amp; RESTful web services. Code for Arduino (embedded side) & Python (REST service side). Passes schedule as a HTTP text-friendly Base64 code.
+Minute Map: share 2-minute-resolution schedules between embedded devices &amp; RESTful web services. Code for Arduino (embedded side), Python (REST backend side) & Javascript (frontend). Passes schedule as HTTP-text-friendly Base64 code.
 
 Example schedule
 ----------------
@@ -99,3 +99,27 @@ Example Python code to get/set schedule using Base64 code
     code = mm.getMinuteMapBase64code()
     print code
 
+Example Javascript code to get schedule using Base64 code
+-----------------------------------------
+
+    function getMinutesRemaining(scheduleCode, currentTime)
+    // E.g., scheduleCode="/AAAAAAAAAA", currentTime=01:30:26
+    {
+      var mm = new MinuteMap();
+      mm.setWithBase64code(scheduleCode);
+      mm.printMinuteMap();
+
+      var minutesRemaining = 0;
+
+      var currTimeArr = currentTime.split(":");
+      var currHour = currTimeArr[0] % 2;
+      var currMin = currTimeArr[1];
+      for (var hour=currHour; hour < 2; hour++)
+        for (var min=currMin; min <= 60; min++)
+          if (mm.isHourMinSet(hour, min))
+            minutesRemaining++;
+          else
+            return minutesRemaining;
+
+      return minutesRemaining;
+    }
